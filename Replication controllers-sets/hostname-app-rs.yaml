@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+   name: hostnameapp-rs
+spec:
+   replicas: 2
+   selector:
+      matchLabels: 
+         app: hostnameapp
+   template:
+      metadata:
+         labels:
+            app: hostnameapp
+      spec:
+         containers:
+         - image: navkkrnair/hostnameapp:latest
+           name: hostnameapp
+           ports:
+           - containerPort: 8080
+             protocol: TCP
+           

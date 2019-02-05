@@ -1,0 +1,39 @@
+# ------------------- Brownfield Airlines Deployment ------------------- #
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: checkin-service
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: checkin-service
+  template:
+    metadata:
+      name: checkin-service
+      labels:
+        app: checkin-service
+    spec:
+      containers:
+      - name: checkin-service
+        image: navkkrnair/kube-checkin-service:1.0
+        env:
+        - name: CONFIG_SERVER
+          value: "config-server"
+
+---
+# ------------------- Brownfield Airlines Service ------------------- #
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkin-service
+spec:
+  type: ClusterIP
+  selector:
+    app: checkin-service
+  ports:
+  - port: 8080
+    targetPort: 8080
+  

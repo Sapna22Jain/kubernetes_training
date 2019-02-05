@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostnameapp-pod
+spec:
+  containers:
+  - image: navkkrnair/hostnameapp
+    name: hostnameapp
+    ports:
+    - containerPort: 8080
+      protocol: TCP

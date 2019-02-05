@@ -1,0 +1,26 @@
+kubectl explain pods
+kubectl explain pod.spec
+kubectl logs <pod-name>
+kubectl port-forward <pod-name> 8888:8080
+kubectl get po --show-labels
+kubectl get po -L creation_method,env
+kubectl label po <pod-name> env=debug --overwrite // modify running pod labels
+kubectl get po -l creation_method=manual // listing subsets of pods using labels
+kubectl get po -l env //list all pods that include the env label
+kubectl get po -l '!env' //those that don’t have the env label
+
+ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+
+kubectl explain
+kubectl create
+kubectl get 
+kubectl logs
+
+
+kubectl delete po kubia-gpu
+
+
+
+
+
+

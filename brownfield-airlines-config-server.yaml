@@ -1,0 +1,36 @@
+# ------------------- Brownfield Airlines Deployment ------------------- #
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: config-server
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      name: config-server
+      labels:
+        app: config-server
+    spec:
+      containers:
+      - name: config-server
+        image: navkkrnair/kube-config-server:1.0
+
+---
+# ------------------- Brownfield Airlines Service ------------------- #
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+spec:
+  type: LoadBalancer
+  selector:
+    app: config-server
+  ports:
+    - port: 8888
+      targetPort: 8888
+  

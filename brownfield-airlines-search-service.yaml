@@ -1,0 +1,39 @@
+# ------------------- Brownfield Airlines Deployment ------------------- #
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: search-service
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: search-service
+  template:
+    metadata:
+      name: search-service
+      labels:
+        app: search-service
+    spec:
+      containers:
+      - name: search-service
+        image: navkkrnair/kube-search-service:1.0
+        env:
+        - name: CONFIG_SERVER
+          value: "config-server"
+
+---
+# ------------------- Brownfield Airlines Service ------------------- #
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: searchservice
+spec:
+  type: ClusterIP
+  selector:
+    app: search-service
+  ports:
+  - port: 8080
+    targetPort: 8080
+  

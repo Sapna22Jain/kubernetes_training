@@ -1,0 +1,39 @@
+# ------------------- Brownfield Airlines Deployment ------------------- #
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: fare-service
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: fare-service
+  template:
+    metadata:
+      name: fare-service
+      labels:
+        app: fare-service
+    spec:
+      containers:
+      - name: fare-service
+        image: navkkrnair/kube-fare-service:1.0
+        env:
+        - name: CONFIG_SERVER
+          value: "config-server"
+
+---
+# ------------------- Brownfield Airlines Service ------------------- #
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fare-service
+spec:
+  type: ClusterIP
+  selector:
+    app: fare-service
+  ports:
+  - port: 8080
+    targetPort: 8080
+  

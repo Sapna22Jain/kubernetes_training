@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostnameapp-specific-node
+  labels:
+    creation_method: manual
+    env: development
+spec:
+  nodeSelector:
+    config: "true"
+  containers:
+  - image: navkkrnair/hostnameapp
+    name: hostnameapp
+    ports:
+    - containerPort: 8080
+      protocol: TCP

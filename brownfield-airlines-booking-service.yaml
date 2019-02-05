@@ -1,0 +1,39 @@
+# ------------------- Brownfield Airlines Deployment ------------------- #
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: booking-service
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: booking-service
+  template:
+    metadata:
+      name: booking-service
+      labels:
+        app: booking-service
+    spec:
+      containers:
+      - name: booking-service
+        image: navkkrnair/kube-booking-service:1.0
+        env:
+        - name: CONFIG_SERVER
+          value: "config-server"
+
+---
+# ------------------- Brownfield Airlines Service ------------------- #
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookingservice
+spec:
+  type: ClusterIP
+  selector:
+    app: booking-service
+  ports:
+  - port: 8080
+    targetPort: 8080
+  
